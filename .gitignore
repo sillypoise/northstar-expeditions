@@ -1,0 +1,24 @@
+# Reproducible generated output must not enter source control.
+node_modules/
+dist/
+.astro/
+coverage/
+playwright-report/
+test-results/
+
+# Local configuration may contain credentials or machine-specific values.
+.env
+.env.*
+!.env.example
+
+# OpenTofu working data and state may contain sensitive infrastructure values.
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+
+# Machine-specific editor files create unrelated repository changes.
+.DS_Store
+*.swp
+*.swo
