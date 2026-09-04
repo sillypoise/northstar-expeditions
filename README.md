@@ -27,24 +27,32 @@ execution; the other portfolio projects provide backend evidence.
 
 ## Current status
 
-Phase 1, product and technology definition, is complete. No executable application or deployment
-exists yet.
+Phase 2, the content-first static foundation, is complete. The home, directory, six expedition
+details, planner introduction, and 404 page build as plain static HTML from validated Markdown. The
+planner interaction, final art direction, and deployment do not exist yet.
 
 - [Product brief](docs/product-brief.md)
 - [Planner contract](docs/planner-contract.md)
 - [Technology decision](docs/decisions/0001-technology-stack.md)
+- [Content-first decision](docs/decisions/0002-content-before-art-direction.md)
 - [Phase log](docs/phase-log.md)
 
-## Planned stack
+## Stack
 
-- Astro with strict TypeScript for static-first pages.
-- React for the trip-planner island only.
-- Tailwind CSS and project-owned design tokens.
-- Typed Astro content collections for seeded expedition content.
-- Vitest and Playwright for logic, contract, accessibility, and browser checks.
-- Cloudflare Pages, subject to an infrastructure validation gate.
-- OpenTofu for supported project-owned infrastructure.
+Currently implemented:
+
+- Astro with strict TypeScript for static pages.
+- Zod-validated Astro content collections for seeded expedition content.
+- Minimal project CSS with system fonts and no media or animation.
+- Vitest, Oxlint, Oxfmt, and Astro checks.
 - pnpm for locked dependencies and a root `justfile` for project commands.
+
+Deferred until a current phase consumes them:
+
+- React for the trip-planner island.
+- Tailwind CSS and project-owned visual tokens.
+- Playwright for planner, accessibility, and browser checks.
+- Cloudflare Pages and OpenTofu, subject to infrastructure validation.
 
 ## Product scope
 
@@ -61,14 +69,25 @@ content, and real lead capture are out of scope.
 
 ## Local development
 
-Executable setup and validation commands will be established in Phase 2. Once tooling exists, the
-root `justfile` will be the canonical command interface.
+Requirements are Node.js 22.12 through 24, pnpm 10.33.2, and just 1.43 or newer.
 
-## Planned delivery phases
+```text
+just install
+just develop
+```
+
+The development server listens on <http://127.0.0.1:4321>. Use `just --list` to discover commands
+and run the complete non-mutating validation set with:
+
+```text
+just check
+```
+
+## Delivery phases
 
 1. Define the product, planner contract, technology boundary, and acceptance criteria.
-2. Establish art direction and validate representative responsive components.
-3. Create the application, command, content, and test foundations.
-4. Build the editorial pages and expedition discovery flow.
-5. Implement the planner, result, invalid-input, boundary, and recovery paths.
-6. Complete accessibility, performance, deployment, and portfolio evidence checks.
+2. Build the plain static application and schema-validated Markdown content foundation.
+3. Implement the planner contract, directory filters, and browser-level negative-path tests.
+4. Add art direction iteratively against the working content and planner.
+5. Complete accessibility, responsive, and performance validation.
+6. Provision infrastructure, deploy, and capture portfolio evidence.

@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import { activity_labels, format_usd } from "../domain/expedition";
+
+interface Props {
+    readonly entry: CollectionEntry<"expeditions">;
+    readonly heading_level: "h2" | "h3";
+}
+
+const { entry, heading_level: Heading } = Astro.props;
+const activities = entry.data.activities.map((activity) => activity_labels[activity]).join(", ");
+---
+
+<article class="expedition-card">
+    <Heading><a href={`/expeditions/${entry.id}`}>{entry.data.title}</a></Heading>
+    <p>{entry.data.summary}</p>
+    <dl class="metadata">
+        <dt>Region</dt>
+        <dd>{entry.data.region}</dd>
+        <dt>Duration</dt>
+        <dd>{entry.data.duration_days} days</dd>
+        <dt>Difficulty</dt>
+        <dd>{entry.data.difficulty}</dd>
+        <dt>Activities</dt>
+        <dd>{activities}</dd>
+        <dt>From</dt>
+        <dd>{format_usd(entry.data.base_price_per_person_usd)} per person</dd>
+    </dl>
+</article>

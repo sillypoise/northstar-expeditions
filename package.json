@@ -1,0 +1,39 @@
+{
+    "name": "northstar-expeditions",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "astro build",
+        "develop": "astro dev --host 127.0.0.1 --port 4321",
+        "format": "oxfmt --write .",
+        "format:check": "oxfmt --check .",
+        "lint": "oxlint --type-aware --deny-warnings scripts src astro.config.ts vitest.config.ts",
+        "test": "vitest run --config vitest.config.ts",
+        "typecheck": "astro check --minimumFailingSeverity warning",
+        "validate:build": "node scripts/validate_static_build.ts"
+    },
+    "dependencies": {
+        "astro": "7.3.1",
+        "zod": "4.5.4"
+    },
+    "devDependencies": {
+        "@astrojs/check": "0.9.10",
+        "@types/node": "24.13.3",
+        "oxfmt": "0.66.0",
+        "oxlint": "1.81.0",
+        "oxlint-tsgolint": "7.0.2001",
+        "typescript": "6.0.3",
+        "vitest": "4.1.4"
+    },
+    "engines": {
+        "node": ">=22.12.0 <25",
+        "pnpm": "10.33.2"
+    },
+    "packageManager": "pnpm@10.33.2",
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "esbuild"
+        ]
+    }
+}

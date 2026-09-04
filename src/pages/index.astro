@@ -1,0 +1,38 @@
+---
+import { getCollection, getEntry, render } from "astro:content";
+
+import ExpeditionCard from "../components/expedition_card.astro";
+import { order_expedition_catalog } from "../domain/expedition";
+import BaseLayout from "../layouts/base_layout.astro";
+
+const page = await getEntry("pages", "home");
+if (page === undefined) throw new Error("The required home content entry is missing.");
+
+const { Content } = await render(page);
+const expeditions = order_expedition_catalog(await getCollection("expeditions"));
+const featured_expeditions = expeditions.filter((entry) => entry.data.featured);
+---
+
+<BaseLayout title={page.data.title} description={page.data.description}>
+    <header class="page-heading">
+        <p class="eyebrow">{page.data.eyebrow}</p>
+        <h1>{page.data.title}</h1>
+        <p>{page.data.description}</p>
+    </header>
+    <article class="prose">
+        <Content />
+    </article>
+    <section aria-labelledby="featured-heading">
+        <h2 id="featured-heading">Featured expeditions</h2>
+        <ul class="expedition-list">
+            {
+                featured_expeditions.map((entry) => (
+                    <li>
+                        <ExpeditionCard entry={entry} heading_level="h3" />
+                    </li>
+                ))
+            }
+        </ul>
+        <p><a href="/expeditions">Browse all expeditions</a></p>
+    </section>
+</BaseLayout>

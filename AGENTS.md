@@ -44,9 +44,11 @@ only documenting it here.
 <!-- BEGIN REPO CONTEXT -->
 - Purpose: Portfolio demonstration of premium frontend and marketing execution through a fictional
   adventure-travel discovery and planning experience.
-- Primary languages: TypeScript, Astro, React, and CSS.
-- Key directories: `docs/` contains product, contract, decision, and phase records. Application and
-  infrastructure directories will be established only when their implementation phases begin.
+- Primary languages: TypeScript, Astro, Markdown, and CSS. React is planned only for the later
+  planner island.
+- Key directories: `src/content/` owns validated Markdown, `src/pages/` owns static routes,
+  `src/domain/` owns content limits and validation, `src/layouts/` and `src/components/` own shared
+  rendering, `scripts/` owns typed artifact checks, and `docs/` owns project decisions.
 - Architectural constraints: Keep content pages static-first and hydrate only the planner. The
   versioned URL is the planner's persisted source of truth. The first release has no personal-data
   collection, server mutation, browser-storage state, CMS, or database.
@@ -54,21 +56,20 @@ only documenting it here.
 
 ## Build / Test / Validation
 
-- Install: Not established until the application foundation phase.
-- Build: Not established until the application foundation phase.
-- Test: Not established until the application foundation phase.
-- Lint: Review Markdown and contracts manually until executable tooling exists.
-- Typecheck: Not established until the application foundation phase.
-- Validation: Review changes against `docs/product-brief.md`, `docs/planner-contract.md`, and the
-  shared documents under `../global-docs/`.
-- Run one test: Not established until the application foundation phase.
+- Install: `just install`
+- Build: `just build`
+- Test: `just test`
+- Lint: `just format-check && just lint`
+- Typecheck: `just typecheck`
+- Validation: `just check`, followed by review against `docs/product-brief.md`,
+  `docs/planner-contract.md`, and the shared documents under `../global-docs/`.
+- Run one test: `just test-one src/domain/expedition.test.ts`
 
 ## Local Workflow Notes
 
-- Preferred commands: Use the root `justfile` after it is added with executable tooling; do not add
-  placeholder recipes.
-- Safe-to-edit areas: Product documentation during Phase 1; later phases will identify application
-  and infrastructure seams explicitly.
+- Preferred commands: Use root `just` recipes; package scripts are low-level implementation details.
+- Safe-to-edit areas: Validated Markdown, static pages, domain validation and tests, minimal shared
+  rendering, and project documentation.
 - Areas requiring extra care: Truthful fictional-content labels, media provenance, planner URL
   compatibility, accessibility, responsive behavior, and performance claims.
 - Review expectations: Check valid, malformed, duplicate, out-of-range, incompatible, refresh,

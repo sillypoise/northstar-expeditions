@@ -1,0 +1,33 @@
+---
+import { getCollection, getEntry, render } from "astro:content";
+
+import ExpeditionCard from "../../components/expedition_card.astro";
+import { order_expedition_catalog } from "../../domain/expedition";
+import BaseLayout from "../../layouts/base_layout.astro";
+
+const page = await getEntry("pages", "expeditions");
+if (page === undefined) throw new Error("The required expeditions content entry is missing.");
+
+const { Content } = await render(page);
+const expeditions = order_expedition_catalog(await getCollection("expeditions"));
+---
+
+<BaseLayout title={page.data.title} description={page.data.description}>
+    <header class="page-heading">
+        <p class="eyebrow">{page.data.eyebrow}</p>
+        <h1>{page.data.title}</h1>
+        <p>{page.data.description}</p>
+    </header>
+    <article class="prose">
+        <Content />
+    </article>
+    <ul class="expedition-list">
+        {
+            expeditions.map((entry) => (
+                <li>
+                    <ExpeditionCard entry={entry} heading_level="h2" />
+                </li>
+            ))
+        }
+    </ul>
+</BaseLayout>

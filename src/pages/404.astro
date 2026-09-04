@@ -1,0 +1,22 @@
+---
+import { getEntry, render } from "astro:content";
+
+import BaseLayout from "../layouts/base_layout.astro";
+
+const page = await getEntry("pages", "not-found");
+if (page === undefined) throw new Error("The required not-found content entry is missing.");
+
+const { Content } = await render(page);
+---
+
+<BaseLayout title={page.data.title} description={page.data.description}>
+    <header class="page-heading">
+        <p class="eyebrow">{page.data.eyebrow}</p>
+        <h1>{page.data.title}</h1>
+        <p>{page.data.description}</p>
+    </header>
+    <article class="prose">
+        <Content />
+    </article>
+    <p><a href="/expeditions">Browse expeditions</a></p>
+</BaseLayout>

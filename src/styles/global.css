@@ -1,0 +1,155 @@
+:root {
+    color-scheme: light;
+    font-family: system-ui, sans-serif;
+    color: #18201d;
+    background: #f7f6f1;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    line-height: 1.6;
+}
+
+a {
+    color: #164f3b;
+    text-underline-offset: 0.18em;
+}
+
+a:focus-visible {
+    outline: 3px solid #a54b23;
+    outline-offset: 3px;
+}
+
+.site-header,
+.site-footer,
+main,
+.concept-notice {
+    width: min(100% - 2rem, 68rem);
+    margin-inline: auto;
+}
+
+.site-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1.25rem;
+    border-bottom: 1px solid #bdc5bf;
+}
+
+.site-name {
+    font-weight: 700;
+}
+
+nav {
+    display: flex;
+    gap: 1rem;
+}
+
+[aria-current="page"] {
+    font-weight: 700;
+    text-decoration-thickness: 0.16em;
+}
+
+.concept-notice {
+    padding-block: 0.75rem;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #bdc5bf;
+}
+
+main {
+    min-height: 70vh;
+    padding-block: 3rem;
+}
+
+.site-footer {
+    padding-block: 2rem;
+    border-top: 1px solid #bdc5bf;
+}
+
+.page-heading,
+.prose {
+    max-width: 46rem;
+}
+
+.page-heading {
+    margin-bottom: 2.5rem;
+}
+
+.eyebrow {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+h1,
+h2,
+h3 {
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: clamp(2.25rem, 8vw, 4.5rem);
+    margin-block: 0.25rem 1rem;
+}
+
+h2 {
+    margin-top: 2.5rem;
+}
+
+.expedition-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: 1rem;
+    padding: 0;
+    list-style: none;
+}
+
+.expedition-card {
+    height: 100%;
+    padding: 1.25rem;
+    border: 1px solid #9fa9a2;
+}
+
+.expedition-card h2,
+.expedition-card h3 {
+    margin-top: 0;
+}
+
+.metadata {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.25rem 1rem;
+    max-width: 46rem;
+}
+
+.metadata dt {
+    font-weight: 700;
+}
+
+.metadata dd {
+    margin: 0;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 2rem;
+}
+
+.skip-link {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    padding: 0.5rem;
+    background: #ffffff;
+    transform: translateY(-200%);
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}

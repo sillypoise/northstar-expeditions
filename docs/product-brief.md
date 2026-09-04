@@ -15,8 +15,8 @@
 
 Premium travel sites must create desire without making discovery or planning confusing. Many
 experiences either provide attractive but disconnected editorial pages or send visitors directly to
-an unstructured inquiry form. A visitor needs to understand an expedition, make bounded choices,
-and leave with a clear summary before deciding whether to contact a real operator.
+an unstructured inquiry form. A visitor needs to understand an expedition, make bounded choices, and
+leave with a clear summary before deciding whether to contact a real operator.
 
 Northstar will demonstrate the frontend and marketing work needed to connect editorial storytelling
 to a useful planning outcome.
@@ -91,14 +91,14 @@ Detailed input, output, and error semantics are normative in
 
 ## Frontend-only exception
 
-The portfolio shipping standard normally expects a genuinely working backend flow. Northstar's
-first release records a narrow exception:
+The portfolio shipping standard normally expects a genuinely working backend flow. Northstar's first
+release records a narrow exception:
 
 - **Owner:** Northstar repository maintainer.
 - **Scope:** First shipped release only.
 - **Reason:** Northstar is assigned to frontend and marketing proof, while the first three portfolio
-  projects provide backend evidence. A fictional inquiry backend would collect personal data and
-  add spam, retention, authorization, and operational responsibilities without strengthening this
+  projects provide backend evidence. A fictional inquiry backend would collect personal data and add
+  spam, retention, authorization, and operational responsibilities without strengthening this
   project's selected capability.
 - **Compensating behavior:** The planner is a real, deterministic stateful flow with explicit input,
   output, error, boundary, refresh, and recovery behavior.
@@ -171,8 +171,8 @@ before the full design system is expanded.
   another one.
 - The target first visual load is at most about 600 KB compressed, including its responsive hero
   image. This is a design budget, not a current measurement or production claim.
-- Deployed Lighthouse results use a documented environment and configuration; target thresholds
-  are set after the representative prototype establishes an honest baseline.
+- Deployed Lighthouse results use a documented environment and configuration; target thresholds are
+  set after the representative prototype establishes an honest baseline.
 
 ### Evidence and delivery
 

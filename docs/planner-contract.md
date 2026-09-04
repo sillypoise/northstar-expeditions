@@ -21,17 +21,17 @@ The planner is not a booking engine, availability check, quote, or inquiry submi
 
 These compile-time limits apply to every input and content record:
 
-| Property | Limit |
-| --- | --- |
-| Contract version | Exactly `1` |
-| Query-string length | At most 512 UTF-8 bytes |
-| Group size | 1 through 8 people |
-| Selected activities | 1 through 3 unique values |
-| Activity values in the catalog | At most 12 |
-| Expeditions in the catalog | At most 24 |
-| Expedition duration | 3 through 21 days |
-| Base price per person | USD 1,000 through USD 25,000 |
-| Indicative subtotal | At most USD 200,000 |
+| Property                       | Limit                        |
+| ------------------------------ | ---------------------------- |
+| Contract version               | Exactly `1`                  |
+| Query-string length            | At most 512 UTF-8 bytes      |
+| Group size                     | 1 through 8 people           |
+| Selected activities            | 1 through 3 unique values    |
+| Activity values in the catalog | At most 12                   |
+| Expeditions in the catalog     | At most 24                   |
+| Expedition duration            | 3 through 21 days            |
+| Base price per person          | USD 1,000 through USD 25,000 |
+| Indicative subtotal            | At most USD 200,000          |
 
 Values outside these limits are invalid rather than truncated or silently corrected.
 
@@ -39,26 +39,24 @@ Values outside these limits are invalid rather than truncated or silently correc
 
 Every completed plan uses exactly these fields:
 
-| Query field | Type | Required | Meaning |
-| --- | --- | --- | --- |
-| `version` | Fixed string `1` | Yes | Selects this contract. |
-| `step` | Enum | Yes | Selects `expedition`, `season`, `group`, `activities`, or `summary`. |
-| `expedition` | Catalog slug | By step | Selects one active seeded expedition. |
-| `season` | Catalog season slug | By step | Selects one season offered by the expedition. |
-| `group_size` | Base-10 integer | By step | Number of travelers, from 1 through 8. |
-| `pace` | Enum | By step | One of `relaxed`, `balanced`, or `active`. |
-| `activity` | Repeated enum | By step | One through three unique catalog activities. |
+- `version`: Required fixed string `1` selecting this contract.
+- `step`: Required enum selecting `expedition`, `season`, `group`, `activities`, or `summary`.
+- `expedition`: Catalog slug, required by step, selecting one active seeded expedition.
+- `season`: Catalog season slug, required by step and offered by the selected expedition.
+- `group_size`: Base-10 integer, required by step, from 1 through 8.
+- `pace`: Required by step and set to `relaxed`, `balanced`, or `active`.
+- `activity`: Repeated enum required by step with one through three unique catalog activities.
 
 The empty `/plan` query initializes `version=1&step=expedition`. Any non-empty query must include
 both `version` and `step`. Required prior selections are:
 
-| Step | Required selections |
-| --- | --- |
-| `expedition` | None |
-| `season` | `expedition` |
-| `group` | `expedition`, `season` |
-| `activities` | `expedition`, `season`, `group_size`, `pace` |
-| `summary` | `expedition`, `season`, `group_size`, `pace`, and `activity` |
+| Step         | Required selections                                          |
+| ------------ | ------------------------------------------------------------ |
+| `expedition` | None                                                         |
+| `season`     | `expedition`                                                 |
+| `group`      | `expedition`, `season`                                       |
+| `activities` | `expedition`, `season`, `group_size`, `pace`                 |
+| `summary`    | `expedition`, `season`, `group_size`, `pace`, and `activity` |
 
 If a prior field is absent, the planner returns `incomplete_plan` and resumes at the first missing
 step rather than deriving a partial result.

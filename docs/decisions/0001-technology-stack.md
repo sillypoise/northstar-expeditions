@@ -1,6 +1,7 @@
 # 0001: Initial Technology Stack
 
-- Status: Accepted with validation gates.
+- Status: Accepted with validation gates; delivery sequence amended by
+  [decision 0002](0002-content-before-art-direction.md).
 - Date: 2026-09-04.
 - Decision owner: `@sillypoise`.
 - Confidence: Medium-high. The architecture matches a static editorial product, but dependency,
@@ -52,9 +53,9 @@ A static deployment has no public server mutation, secret-bearing application ru
 lifecycle. This is materially smaller than adding a backend solely to imitate lead capture in a
 fictional business.
 
-Tailwind accelerates responsive implementation, while explicit project tokens and bespoke
-components preserve art direction. Native motion remains sufficient until a reviewed prototype
-proves otherwise.
+Tailwind accelerates responsive implementation, while explicit project tokens and bespoke components
+preserve art direction. Native motion remains sufficient until a reviewed prototype proves
+otherwise.
 
 ## Alternatives considered
 
@@ -82,8 +83,8 @@ service, preview authorization, webhook, or schema-migration surface.
 ### Server-backed inquiry capture
 
 A server endpoint would persist conversion data but would also introduce personal-data collection,
-spam protection, retention, authorization, and operations. It is rejected for the first release.
-The product brief records the bounded exception and its reconsideration trigger.
+spam protection, retention, authorization, and operations. It is rejected for the first release. The
+product brief records the bounded exception and its reconsideration trigger.
 
 ## Consequences
 
@@ -98,9 +99,10 @@ The product brief records the bounded exception and its reconsideration trigger.
 - Media files will dominate transfer cost, so responsive dimensions, formats, and provenance are
   part of implementation rather than deferred polish.
 
-## Phase 2 art-direction gate
+## Deferred art-direction gate
 
-Before expanding the visual system, demonstrate:
+Decision 0002 moves this gate after the plain content foundation. Before expanding the visual
+system, demonstrate:
 
 1. One home-page section at 360, 768, and 1440 CSS-pixel widths.
 2. One expedition card with representative short and long content.

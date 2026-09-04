@@ -1,0 +1,48 @@
+---
+import "../styles/global.css";
+
+interface Props {
+    readonly title: string;
+    readonly description: string;
+}
+
+const { title, description } = Astro.props;
+const site_name = "Northstar Expeditions";
+const document_title = title === site_name ? title : `${title} | ${site_name}`;
+const pathname = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content={description} />
+        <meta name="generator" content={Astro.generator} />
+        <title>{document_title}</title>
+    </head>
+    <body>
+        <a class="skip-link" href="#main-content">Skip to main content</a>
+        <header class="site-header">
+            <a class="site-name" href="/">Northstar Expeditions</a>
+            <nav aria-label="Primary navigation">
+                <a
+                    href="/expeditions"
+                    aria-current={pathname.startsWith("/expeditions") ? "page" : undefined}
+                >
+                    Expeditions
+                </a>
+                <a href="/plan" aria-current={pathname === "/plan" ? "page" : undefined}>Plan</a>
+            </nav>
+        </header>
+        <aside class="concept-notice" aria-label="Demonstration notice">
+            Independent product concept. Journeys, availability, and prices are illustrative.
+        </aside>
+        <main id="main-content">
+            <slot />
+        </main>
+        <footer class="site-footer">
+            <p>Northstar is a portfolio demonstration, not a travel operator or booking service.</p>
+        </footer>
+    </body>
+</html>
