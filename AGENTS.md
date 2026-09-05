@@ -44,8 +44,8 @@ only documenting it here.
 <!-- BEGIN REPO CONTEXT -->
 - Purpose: Portfolio demonstration of premium frontend and marketing execution through a fictional
   adventure-travel discovery and planning experience.
-- Primary languages: TypeScript, Astro, Markdown, and CSS. React is planned only for the later
-  planner island.
+- Primary languages: TypeScript, Astro, React, Markdown, and CSS. React is confined to the planner
+  island; directory filtering uses a vanilla TypeScript enhancement.
 - Key directories: `src/content/` owns validated Markdown, `src/pages/` owns static routes,
   `src/domain/` owns content limits and validation, `src/layouts/` and `src/components/` own shared
   rendering, `scripts/` owns typed artifact checks, and `docs/` owns project decisions.
@@ -58,10 +58,11 @@ only documenting it here.
 
 - Install: `just install`
 - Build: `just build`
-- Test: `just test`
+- Test: `just test && just test-browser` (run `just browser-install` once first).
 - Lint: `just format-check && just lint`
 - Typecheck: `just typecheck`
-- Validation: `just check`, followed by review against `docs/product-brief.md`,
+- Validation: `just check` includes Chromium browser tests against the production artifact,
+  followed by review against `docs/product-brief.md`,
   `docs/planner-contract.md`, and the shared documents under `../global-docs/`.
 - Run one test: `just test-one src/domain/expedition.test.ts`
 

@@ -1,6 +1,6 @@
-import assert from "node:assert/strict";
-
 import { z } from "zod";
+
+import { invariant as assert } from "./invariant";
 
 export const maximum_catalog_entries = 24;
 export const maximum_price_per_person_usd = 25_000;

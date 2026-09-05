@@ -27,14 +27,15 @@ execution; the other portfolio projects provide backend evidence.
 
 ## Current status
 
-Phase 2, the content-first static foundation, is complete. The home, directory, six expedition
-details, planner introduction, and 404 page build as plain static HTML from validated Markdown. The
-planner interaction, final art direction, and deployment do not exist yet.
+Stage 3, the URL-backed planner and directory filters, is implemented on the plain content
+foundation. Visitors can filter six fictional expeditions, complete a four-step plan, and edit,
+reset, copy, or print its illustrative summary. Art direction and deployment remain deferred.
 
 - [Product brief](docs/product-brief.md)
 - [Planner contract](docs/planner-contract.md)
 - [Technology decision](docs/decisions/0001-technology-stack.md)
 - [Content-first decision](docs/decisions/0002-content-before-art-direction.md)
+- [Planner and filter implementation decision](docs/decisions/0003-url-planner-and-directory-filters.md)
 - [Phase log](docs/phase-log.md)
 
 ## Stack
@@ -44,14 +45,14 @@ Currently implemented:
 - Astro with strict TypeScript for static pages.
 - Zod-validated Astro content collections for seeded expedition content.
 - Minimal project CSS with system fonts and no media or animation.
-- Vitest, Oxlint, Oxfmt, and Astro checks.
+- A React planner island with versioned URL state and no browser storage.
+- Vanilla TypeScript directory filters; all content remains available without JavaScript.
+- Vitest, Playwright/Chromium, Oxlint, Oxfmt, and Astro checks.
 - pnpm for locked dependencies and a root `justfile` for project commands.
 
 Deferred until a current phase consumes them:
 
-- React for the trip-planner island.
 - Tailwind CSS and project-owned visual tokens.
-- Playwright for planner, accessibility, and browser checks.
 - Cloudflare Pages and OpenTofu, subject to infrastructure validation.
 
 ## Product scope
@@ -80,8 +81,13 @@ The development server listens on <http://127.0.0.1:4321>. Use `just --list` to 
 and run the complete non-mutating validation set with:
 
 ```text
+just browser-install
 just check
 ```
+
+`just test` runs unit tests; `just test-browser` builds and runs Chromium checks. `just preview`
+serves the built artifact at <http://127.0.0.1:4322>. The browser suite requires Chromium's
+operating system dependencies. No public infrastructure has been provisioned.
 
 ## Delivery phases
 

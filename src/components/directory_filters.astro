@@ -1,0 +1,63 @@
+---
+import { activity_labels, season_labels, type ExpeditionCatalogEntry } from "../domain/expedition";
+interface Props { readonly entries: readonly ExpeditionCatalogEntry[] }
+const { entries } = Astro.props;
+const countries = [...new Set(entries.map((entry) => entry.data.country))];
+---
+<form id="directory-filters" hidden>
+    <fieldset>
+        <legend>Filter expeditions</legend>
+        <label>Destination<select name="country"><option value="">All destinations</option>
+            {countries.map((country) => <option value={country}>{country}</option>)}
+        </select></label>
+        <label>Season<select name="season"><option value="">All seasons</option>
+            {Object.entries(season_labels).map(([value, label]) => (
+                <option value={value}>{label}</option>
+            ))}
+        </select></label>
+        <label>Duration<select name="duration"><option value="">Any duration</option>
+            <option value="short">3–8 days</option><option value="long">9–21 days</option>
+        </select></label>
+        <label>Activity<select name="activity"><option value="">All activities</option>
+            {Object.entries(activity_labels).map(([value, label]) => (
+                <option value={value}>{label}</option>
+            ))}
+        </select></label>
+        <button type="submit">Apply filters</button>{" "}<button type="reset">Reset filters</button>
+    </fieldset>
+    <p id="filter-status" role="status">Showing all expeditions.</p>
+</form>
+<script>
+    const form = document.querySelector<HTMLFormElement>("#directory-filters");
+    const status = document.querySelector<HTMLElement>("#filter-status");
+    const cards = [...document.querySelectorAll<HTMLElement>("[data-expedition]")];
+    if (form === null) throw new Error("Directory filter form is missing.");
+    if (status === null) throw new Error("Directory filter status is missing.");
+    if (cards.length > 24) throw new Error("Directory exceeds its catalog bound.");
+    form.hidden = false;
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const selected = new FormData(form);
+        let count = 0;
+        for (const card of cards) {
+            let visible = true;
+            for (const field of ["country", "season", "duration", "activity"]) {
+                const value = selected.get(field);
+                if (typeof value !== "string") { visible = false; continue; }
+                if (value !== "") {
+                    const offered = (card.dataset[field] ?? "").split("|");
+                    if (offered.includes(value) === false) visible = false;
+                }
+            }
+            card.hidden = visible === false;
+            if (visible) count += 1;
+        }
+        status.textContent = count === 0
+            ? "No expeditions match. Change or reset filters."
+            : `Showing ${count} expeditions.`;
+    });
+    form.addEventListener("reset", () => {
+        for (const card of cards) card.hidden = false;
+        status.textContent = "Showing all expeditions.";
+    });
+</script>

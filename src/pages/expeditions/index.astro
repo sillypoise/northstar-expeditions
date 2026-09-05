@@ -2,6 +2,7 @@
 import { getCollection, getEntry, render } from "astro:content";
 
 import ExpeditionCard from "../../components/expedition_card.astro";
+import DirectoryFilters from "../../components/directory_filters.astro";
 import { order_expedition_catalog } from "../../domain/expedition";
 import BaseLayout from "../../layouts/base_layout.astro";
 
@@ -21,10 +22,15 @@ const expeditions = order_expedition_catalog(await getCollection("expeditions"))
     <article class="prose">
         <Content />
     </article>
+    <DirectoryFilters entries={expeditions} />
     <ul class="expedition-list">
         {
             expeditions.map((entry) => (
-                <li>
+                <li data-expedition data-country={entry.data.country}
+                    data-season={entry.data.seasons.join("|")}
+                    data-duration={entry.data.duration_days <= 8 ? "short" : "long"}
+                    data-activity={entry.data.activities.join("|")}>
+
                     <ExpeditionCard entry={entry} heading_level="h2" />
                 </li>
             ))

@@ -55,6 +55,7 @@ const activities = entry.data.activities.map((activity) => activity_labels[activ
             {entry.data.highlights.map((highlight) => <li>{highlight}</li>)}
         </ul>
     </section>
+    <p><a href={`/plan?version=1&step=season&expedition=${entry.id}`}>Plan this expedition</a></p>
     <article class="prose">
         <Content />
     </article>

@@ -36,5 +36,10 @@ for (const relative_path of expected_html_paths) {
         `${relative_path} must include main content.`,
     );
     assert(html.includes("<title>"), `${relative_path} must include a document title.`);
-    assert(is_script_free, `${relative_path} must not ship client JavaScript in Phase 2.`);
+    if (relative_path !== "plan/index.html") {
+        assert(html.includes("<astro-island") === false, "Only the planner may hydrate React.");
+        if (relative_path !== "expeditions/index.html") {
+            assert(is_script_free, `${relative_path} must not ship client JavaScript.`);
+        }
+    }
 }

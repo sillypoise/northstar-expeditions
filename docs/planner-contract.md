@@ -63,7 +63,10 @@ step rather than deriving a partial result.
 
 Unknown fields are rejected. Duplicate scalar fields are invalid. Repeated `activity` fields are
 expected, but duplicate activity values are invalid. Parsing must not coerce floats, signs,
-whitespace, hexadecimal values, empty strings, or mixed alphanumeric strings into an integer.
+whitespace, hexadecimal values, empty strings, or mixed alphanumeric strings into an integer. Group
+size uses canonical unsigned decimal syntax: leading zeros are invalid. Missing activities are
+`incomplete_plan`; a present empty activity is `invalid_value`. Every present optional field is
+validated even when the current step does not yet require it.
 
 ## Validation order
 
@@ -75,10 +78,14 @@ A summary request must validate in this order before calculating a result:
 4. Presence of fields required by the selected step.
 5. Primitive shape and enum membership.
 6. Numeric and count bounds.
-7. Expedition existence and active status.
-8. Season support for the selected expedition.
-9. Activity support for the selected expedition.
-10. Content-record invariants required by the calculation.
+7. Bounded, non-empty catalog and unique identifiers; expedition existence and active status.
+8. Content-record invariants, before using its season/activity arrays or price.
+9. Season support for the selected expedition.
+10. Activity support for the selected expedition.
+
+The build-validated registry contains active records only. An absent, removed, or inactive slug
+fails `unknown_expedition`. An invalid catalog fails `invalid_content` before any calculation.
+Missing or unknown step metadata is checked before step-dependent requirements.
 
 No indicative subtotal may be displayed if any validation step fails.
 
@@ -136,8 +143,13 @@ traces, source paths, or raw serialized records.
 - Reset removes all planner fields and returns to the first step.
 - Edit preserves fields valid for the selected earlier choices and removes newly incompatible later
   choices.
-- Copy-link uses a canonical bounded URL with scalar fields in contract-table order and activities
-  in catalog order.
+- Copy-link uses a canonical bounded URL with scalar fields in the input-list order and activities
+  in the shared catalog vocabulary order. Clipboard denial exposes a selectable link and does not
+  claim success.
+- Continue commits editable controls through full-document URL navigation. Unsaved control changes
+  are not persisted; React holds only transient validation/copy feedback.
+- Invalid URLs recover to the longest valid prior-step prefix or a new plan. Unknown versions always
+  recover to a new plan, never implicit version conversion.
 - Print renders the current validated summary and the illustrative-data disclaimer.
 
 ## Compatibility rules

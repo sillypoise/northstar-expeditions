@@ -20,6 +20,8 @@ Every detail page explains the route and the assumptions behind its indicative p
 
 ## Plan without surrendering your inbox
 
-The planned trip builder will use a small set of non-sensitive choices. It will not ask for a name,
-email address, exact travel date, health information, or payment details. A completed plan will be a
-shareable summary, not a booking request.
+The trip builder uses a small set of non-sensitive choices. It does not ask for a name, email
+address, exact travel date, health information, or payment details. A completed plan is a shareable
+summary, not a booking request.
+
+[Start a plan](/plan), or choose a journey from the collection first.

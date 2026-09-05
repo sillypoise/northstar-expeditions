@@ -47,3 +47,29 @@ pages, and direct artifact checks. A frozen-lockfile install and high-severity d
 passed with no reported vulnerability. The expedition directory was rendered at 360, 768, and 1440
 CSS-pixel widths and remained readable without horizontal overflow. HTTP smoke checks returned 200
 for home, directory, detail, and planner routes and 404 for an unknown route. No deployment exists.
+
+## Stage 3 — Content review, URL planner, and directory filtering
+
+- Reviewed the plain content hierarchy; added season metadata, direct detail-to-planner links,
+  current-tense copy, and explicit pace/price limitations without art-direction work.
+- Implemented one React planner island with four steps and a printable illustrative summary.
+- Kept the URL as persisted state, using full-document navigation rather than a custom history
+  synchronization layer. No browser storage, personal fields, server mutation, or analytics exist.
+- Implemented bounded parsing, stable errors, validated-prefix recovery, canonical copying, and
+  invalidation of incompatible season/activity choices when an expedition changes.
+- Added vanilla directory filtering with combined constraints, no-match feedback, reset, and static
+  content fallback when JavaScript is unavailable.
+- Narrowed the Phase 2 script-free gate: only the directory's vanilla enhancement and planner island
+  now ship JavaScript. Home and detail pages remain script-free.
+- Added pinned React and Playwright dependencies only when their interactions/tests needed them.
+- Documented initial contract clarifications and filter semantics in decision 0003. Existing
+  expedition slugs, durations, and prices did not change.
+
+Validation: `just check` passed 42 unit tests and 12 Chromium browser tests alongside formatting,
+warning-denied linting, strict Astro/TypeScript checks, and static-artifact validation. Cases
+include all stable planner errors, exact and exceeded bounds, refresh/history, edit invalidation,
+copy success and denial, print invocation/visibility, keyboard navigation, empty filters, unknown
+routes, no JavaScript, failed hydration, and 360/768/1440-pixel widths with reduced motion. A
+dependency audit reported no known vulnerabilities. These are local checks, not a full accessibility
+audit, cross-browser guarantee, public deployment, or final visual-quality claim. Art direction
+remains deferred.

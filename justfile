@@ -44,8 +44,20 @@ test-one test_file:
 validate-build: build
     pnpm validate:build
 
+# Serve the production static build for local browser checks.
+preview:
+    ASTRO_TELEMETRY_DISABLED=1 pnpm exec astro preview --host 127.0.0.1 --port 4322
+
+# Install the locked Chromium browser used by browser tests.
+browser-install:
+    pnpm exec playwright install chromium
+
+# Exercise the production site in Chromium.
+test-browser: validate-build
+    pnpm exec playwright test
+
 # Run every required non-mutating check.
-check: format-check lint typecheck test validate-build
+check: format-check lint typecheck test test-browser
 
 # Print the active project tool versions.
 runtime:
